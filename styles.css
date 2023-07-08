@@ -1,14 +1,48 @@
+#main {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 150px;
+}
+
 #container {
     display: flex;
     flex-wrap: wrap;
+    width: 600px;
+    height: auto;
+    border: solid;
 }
 
-.square {
-    width: 50px;
-    height: 50px;
-    background-color: black;
+#menu {
+    width: 200px;
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex: 0 1 auto;
+    padding: 20px
+}
+
+#menu > button {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.gridSquare {
+    width: 37.5px;
+    height: 37.5px;
+    background-color: white;
 }
 
 .square:hover {
+    background-color: black;
+}
+
+.squarePaint {
+    background-color: black;
+}
+
+.squareErase {
     background-color: white;
 }
