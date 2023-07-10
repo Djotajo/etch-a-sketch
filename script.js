@@ -16,6 +16,8 @@ function eraserFunctions() {
     if (useEraser == false) {
         useEraser = true;
         eraser.textContent = "Eraser - On";
+        useRainbow = false;
+        rainbow.textContent = "Rainbow mode - Off";
     } else {useEraser = false;
         eraser.textContent = "Eraser - Off";
     };
@@ -32,15 +34,40 @@ eraser.addEventListener("click", eraserFunctions)
 //     };
 // })
 
+let useRainbow = false;
+const rainbow = document.querySelector("#rainbow");
 
+function rainbowFunctions() {
+    if (useRainbow == false) {
+        useRainbow = true;
+        rainbow.textContent = "Rainbow mode - On";
+        useEraser = false;
+        eraser.textContent = "Eraser - Off";
+    } else {useRainbow = false;
+        rainbow.textContent = "Rainbow mode - Off";
+    };
+    console.log(useRainbow);
+}
 
+rainbow.addEventListener("click", rainbowFunctions);
+
+function rainbowColors() {
+    let letters = "0123456789ABCDEF";
+    let activeColor = "#";
+    for (let i = 0; i < 6; i++) {
+        activeColor += letters[(Math.floor(Math.random() * 16))];}
+    return activeColor;
+}
 
 function altPaintSquare(e) {
-    if (useEraser == false) {
+    if (useRainbow == true) {
+        e.style.backgroundColor = rainbowColors();
+    } else if (useEraser == false) {
     e.style.backgroundColor = color;
 } else if (useEraser == true) {
     e.style.backgroundColor = "white";
 }
+console.log(useRainbow);
 }
 
 for (let i = 0; i< 16; i++) {
@@ -62,6 +89,7 @@ const squares = document.querySelectorAll(".gridSquare");
 for (let square of squares) {
     square.addEventListener("mouseover", function(e) {
         console.log(this);
+        // rainbowColors()
         altPaintSquare(this);
     });
 }
