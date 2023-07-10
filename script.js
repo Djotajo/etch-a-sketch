@@ -8,8 +8,39 @@ colorElement.addEventListener("input", () => {
     console.log(color);
 })
 
+
+let useEraser = false;
+const eraser = document.querySelector("#eraser");
+
+function eraserFunctions() {
+    if (useEraser == false) {
+        useEraser = true;
+        eraser.textContent = "Eraser - On";
+    } else {useEraser = false;
+        eraser.textContent = "Eraser - Off";
+    };
+}
+
+eraser.addEventListener("click", eraserFunctions)
+
+// eraser.addEventListener("click", () => {
+//     if (useEraser == false) {
+//         useEraser = true;
+//         eraser.textContent = "Eraser - On";
+//     } else {useEraser = false;
+//         eraser.textContent = "Eraser - Off";
+//     };
+// })
+
+
+
+
 function altPaintSquare(e) {
+    if (useEraser == false) {
     e.style.backgroundColor = color;
+} else if (useEraser == true) {
+    e.style.backgroundColor = "white";
+}
 }
 
 for (let i = 0; i< 16; i++) {
@@ -35,3 +66,11 @@ for (let square of squares) {
     });
 }
 
+const clear = document.querySelector("#clear");
+clear.addEventListener("click", () => {
+    for (let square of squares) {
+        square.style.backgroundColor = "white";
+        useEraser = false;
+        eraser.textContent = "Eraser - Off";
+        }
+})
