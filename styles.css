@@ -1,22 +1,54 @@
 #main {
     display: flex;
     justify-content: center;
+    align-content: center;
     gap: 80px;
-    margin-top: 150px;
+    margin-top: 30px;
+    outline: 10px bisque groove;
+    background-color: bisque;
+    padding: 20px;
+}
+
+#overMain {
+    display: flex;
+    justify-content: center;
+}
+
+#header, #footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#footer {
+    align-items: center;
+    flex-direction: column;
+}
+
+#title {
+    padding: 25px;
+    outline: 10px bisque groove;
+    background-color: bisque;
 }
 
 #container {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 640px;
-    height: auto;
-    outline: solid;
+    width: 644px;
+    max-width: 644px;
+    height: 644px;
     box-sizing: border-box;
+    align-items: stretch;
+    gap: none;
+    flex: 1;
 }
 
 #menu {
     width: 220px;
-    background-color: blueviolet;
+    background-color: bisque;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -30,11 +62,21 @@
     font-size: 14px;
 }
 
+.gridRow {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: stretch;
+    align-content: stretch;
+    gap: none;
+    margin: 0px;
+}
+
 .gridSquare {
-    width: 38px;
-    height: 38px;
     background-color: white;
     border: 1px solid transparent;
+    flex: 1 1 auto;
+    margin: 0px;
 }
 
 .square:hover {
@@ -47,4 +89,14 @@
 
 .squareErase {
     background-color: white;
+}
+
+#githubLogo {
+    width: 1.5em;
+    height: auto;
+}
+
+#copyrights {
+    display: flex;
+    flex-direction: column;
 }

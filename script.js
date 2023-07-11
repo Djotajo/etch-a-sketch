@@ -7,6 +7,42 @@ colorElement.addEventListener("input", () => {
     color = colorElement.value;
 })
 
+const gridSize = document.querySelector("#gridSize")
+
+
+
+// ********************
+//potrebno napraviti funkcije za odredjene stvari i rasteretiti tekst
+//********* 
+
+gridSize.addEventListener("click", () => {
+    let newSize = +prompt("Enter number of squares between 1 and 50");
+    if (isNaN(newSize) || newSize < 1 || newSize > 50) {
+    do {
+        newSize = +prompt("Enter number of squares between 1 and 50");
+    } while (isNaN(newSize) || newSize < 1 || newSize > 50) }
+    container.replaceChildren()
+    for (let i = 0; i< newSize; i++) {
+        let newRow = document.createElement("div");
+        newRow.classList.add("gridRow");
+        for (let n = 0; n< newSize; n++) {
+            let newDiv = document.createElement("div");
+            newDiv.textContent = "";
+            newDiv.classList.add("gridSquare")
+            console.log(newDiv.style.width);
+            newRow.appendChild(newDiv);
+        }
+        container.appendChild(newRow);
+    }
+    paint();
+    if (showGrid == true) {
+        for (let square of squares) {
+            square.style.border = "1px solid black";
+            grid.textContent = "Show grid - On";
+        }
+}})
+
+
 let showGrid = false;
 const grid = document.querySelector("#grid");
 
@@ -53,15 +89,6 @@ function eraserFunctions() {
 
 eraser.addEventListener("click", eraserFunctions)
 
-// eraser.addEventListener("click", () => {
-//     if (useEraser == false) {
-//         useEraser = true;
-//         eraser.textContent = "Eraser - On";
-//     } else {useEraser = false;
-//         eraser.textContent = "Eraser - Off";
-//     };
-// })
-
 let useRainbow = false;
 const rainbow = document.querySelector("#rainbow");
 
@@ -98,10 +125,11 @@ function altPaintSquare(e) {
 
 for (let i = 0; i< 16; i++) {
     let newRow = document.createElement("div");
+    newRow.classList.add("gridRow");
     for (let n = 0; n< 16; n++) {
         let newDiv = document.createElement("div");
         newDiv.textContent = "";
-        newDiv.classList.add("gridSquare")
+        newDiv.classList.add("gridSquare");
         newRow.appendChild(newDiv);
     }
     container.appendChild(newRow);
@@ -111,11 +139,21 @@ function paintSquare(e) {
     e.classList.add("squarePaint");
 }
 
-const squares = document.querySelectorAll(".gridSquare");
+let squares = document.querySelectorAll(".gridSquare");
+
+function paint() {
+    squares = document.querySelectorAll(".gridSquare");
+    for (let square of squares) {
+        square.addEventListener("mousemove", function(e) {
+            console.log(this);
+            // rainbowColors()
+            if (mouseState == true) {altPaintSquare(this)};
+        });
+    }
+}
 for (let square of squares) {
     square.addEventListener("mousemove", function(e) {
         console.log(this);
-        console.log(mouseState);
         // rainbowColors()
         if (mouseState == true) {altPaintSquare(this)};
     });
