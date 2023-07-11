@@ -1,27 +1,46 @@
 const container = document.querySelector("#container")
 
+// The option to choose color
 const colorElement = document.querySelector("#color");
+
 let color = colorElement.value;
 
 colorElement.addEventListener("input", () => {
     color = colorElement.value;
 })
 
-const gridSize = document.querySelector("#gridSize")
 
+// Create default grid
+for (let i = 0; i< 16; i++) {
+    let newRow = document.createElement("div");
+    newRow.classList.add("gridRow");
+    for (let n = 0; n< 16; n++) {
+        let newDiv = document.createElement("div");
+        newDiv.textContent = "";
+        newDiv.classList.add("gridSquare");
+        newRow.appendChild(newDiv);
+    }
+    container.appendChild(newRow);
+}
 
+let squares = document.querySelectorAll(".gridSquare");
+paint();
 
-// ********************
-//potrebno napraviti funkcije za odredjene stvari i rasteretiti tekst
-//********* 
+// The option to choose grid size limit to 50x50
+const gridSize = document.querySelector("#gridSize");
 
-gridSize.addEventListener("click", () => {
+gridSize.addEventListener("click", setGridSize);
+
+function setGridSize() {
     let newSize = +prompt("Enter number of squares between 1 and 50");
+
     if (isNaN(newSize) || newSize < 1 || newSize > 50) {
     do {
         newSize = +prompt("Enter number of squares between 1 and 50");
     } while (isNaN(newSize) || newSize < 1 || newSize > 50) }
+
     container.replaceChildren()
+
     for (let i = 0; i< newSize; i++) {
         let newRow = document.createElement("div");
         newRow.classList.add("gridRow");
@@ -34,16 +53,20 @@ gridSize.addEventListener("click", () => {
         }
         container.appendChild(newRow);
     }
+
     paint();
+    
     if (showGrid == true) {
         for (let square of squares) {
             square.style.border = "1px solid black";
             grid.textContent = "Show grid - On";
         }
-}})
+}}
 
 
+// Grid visibility
 let showGrid = false;
+
 const grid = document.querySelector("#grid");
 
 grid.addEventListener("click", gridFunctions)
@@ -63,6 +86,8 @@ function gridFunctions() {
     };
 }
 
+
+// Paint on/off on mouse click
 let mouseState = false;
 
 container.addEventListener("click", () => {
@@ -73,8 +98,11 @@ container.addEventListener("click", () => {
 });
 
 
+// Eraser
 let useEraser = false;
 const eraser = document.querySelector("#eraser");
+
+eraser.addEventListener("click", eraserFunctions)
 
 function eraserFunctions() {
     if (useEraser == false) {
@@ -87,10 +115,13 @@ function eraserFunctions() {
     };
 }
 
-eraser.addEventListener("click", eraserFunctions)
+
+// Rainbow mode
 
 let useRainbow = false;
 const rainbow = document.querySelector("#rainbow");
+
+rainbow.addEventListener("click", rainbowFunctions);
 
 function rainbowFunctions() {
     if (useRainbow == false) {
@@ -103,8 +134,6 @@ function rainbowFunctions() {
     };
 }
 
-rainbow.addEventListener("click", rainbowFunctions);
-
 function rainbowColors() {
     let letters = "0123456789ABCDEF";
     let activeColor = "#";
@@ -113,7 +142,9 @@ function rainbowColors() {
     return activeColor;
 }
 
-function altPaintSquare(e) {
+
+// Paint
+function paintSquare(e) {
     if (useRainbow == true) {
         e.style.backgroundColor = rainbowColors();
     } else if (useEraser == false) {
@@ -123,43 +154,20 @@ function altPaintSquare(e) {
 }
 }
 
-for (let i = 0; i< 16; i++) {
-    let newRow = document.createElement("div");
-    newRow.classList.add("gridRow");
-    for (let n = 0; n< 16; n++) {
-        let newDiv = document.createElement("div");
-        newDiv.textContent = "";
-        newDiv.classList.add("gridSquare");
-        newRow.appendChild(newDiv);
-    }
-    container.appendChild(newRow);
-}
-
-function paintSquare(e) {
-    e.classList.add("squarePaint");
-}
-
-let squares = document.querySelectorAll(".gridSquare");
-
 function paint() {
     squares = document.querySelectorAll(".gridSquare");
     for (let square of squares) {
         square.addEventListener("mousemove", function(e) {
             console.log(this);
-            // rainbowColors()
-            if (mouseState == true) {altPaintSquare(this)};
+            if (mouseState == true) {paintSquare(this)};
         });
     }
 }
-for (let square of squares) {
-    square.addEventListener("mousemove", function(e) {
-        console.log(this);
-        // rainbowColors()
-        if (mouseState == true) {altPaintSquare(this)};
-    });
-}
 
+
+// Clear grid
 const clear = document.querySelector("#clear");
+
 clear.addEventListener("click", () => {
     for (let square of squares) {
         square.style.backgroundColor = "white";
